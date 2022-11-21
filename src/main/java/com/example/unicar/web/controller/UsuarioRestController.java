@@ -4,10 +4,7 @@ import com.example.unicar.core.entity.Usuario;
 import com.example.unicar.core.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,16 +15,19 @@ public class UsuarioRestController extends BaseRestController {
     @Autowired
     private UsuarioService service;
 
+    @PostMapping("/cadastrar")
+    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
+        return writeResponseBody(service.cadastrar(usuario));
+    }
+
     @GetMapping(value = "/{id}")
-    public  ResponseEntity<Usuario> findById(@PathVariable Integer id) {
-        Usuario usuario = service.findById(id);
-        return writeResponseBody(usuario);
+    public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
+        return writeResponseBody(service.findById(id));
     }
 
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll() {
-        List<Usuario> list = service.findAll();
-        return writeResponseBody(list);
+        return writeResponseBody(service.findAll());
     }
 
 }
