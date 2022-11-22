@@ -4,9 +4,15 @@ import com.example.unicar.core.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+import java.util.Optional;
+import java.util.UUID;
 
-    boolean existsUsuarioByEmail(String email);
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
+    Optional<Usuario> findUsuarioByUsername(String username);
+
+    Optional<Usuario> findUsuarioByUuid(UUID uuid);
+
+    boolean existsUsuarioByUsername(String username);
 
 }

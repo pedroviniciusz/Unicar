@@ -22,7 +22,7 @@ public class IsNullUtil {
 	}
 
 	public static <T> boolean isNullOrEmpty(Collection<T> collection) {
-		return collection.stream().anyMatch(Objects::nonNull);
+		return collection.isEmpty();
 	}
 
 	public static boolean isNullOrEmpty(Number number) {
