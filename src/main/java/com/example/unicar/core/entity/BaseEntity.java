@@ -8,15 +8,16 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 @MappedSuperclass
 @Getter
 @Setter
 public abstract class BaseEntity<T extends Serializable> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 5883878545428459079L;
 
     public abstract T getUuid();

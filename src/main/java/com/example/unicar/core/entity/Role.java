@@ -7,11 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Getter @Setter
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "Role")
 public class Role extends BaseEntity implements GrantedAuthority {

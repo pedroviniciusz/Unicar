@@ -1,18 +1,21 @@
 package com.example.unicar.core.service;
 
 import com.example.unicar.core.entity.Usuario;
+import com.example.unicar.core.exception.EntityDuplicateException;
+import com.example.unicar.core.exception.EntityNotFoundException;
 import com.example.unicar.core.repository.UsuarioRepository;
+import com.example.unicar.config.Messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.example.unicar.core.util.IsNullUtil.isNullOrEmpty;
+import static com.example.unicar.core.exception.ExceptionUtil.requireField;
+import static com.example.unicar.config.Messages.*;
 
 @Service
 @RequiredArgsConstructor
@@ -21,13 +24,15 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repository;
 
+    private final Messages messages;
+
     private BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 
     public Usuario findUsuarioByUuid(UUID uuid) {
         Optional<Usuario> usuario = repository.findUsuarioByUuid(uuid);
-        return usuario.orElseThrow(() -> new EntityNotFoundException("Não foi possível encontrar este usuário"));
+        return usuario.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_USUARIO_COM_ESTE_USERNAME)));
     }
 
     public List<Usuario> findAll() {
@@ -37,30 +42,23 @@ public class UsuarioService {
     public Usuario cadastrar(Usuario usuario){
         
         if(existeUsuario(usuario.getUsername())){
-            throw new RuntimeException("Já existe cadastro com este usuário");
+            throw new EntityDuplicateException(messages.getMessage(JA_EXISTE_CADASTRO_COM_ESTE_USUARIO));
         }
 
         codificarSenha(usuario);
 
-        Usuario usuarioCriado = repository.save(usuario);
-
-        return usuarioCriado;
+        return repository.save(usuario);
         
     }
 
     private boolean existeUsuario(String username){
-        boolean existeUsuario;
-        return existeUsuario = repository.existsUsuarioByUsername(username);
+        return repository.existsUsuarioByUsername(username);
     }
 
     private void codificarSenha(Usuario usuario){
-
-        if(isNullOrEmpty(usuario.getPassword())){
-            throw new IllegalArgumentException("A senha não pode ser nula");
-        }
+        requireField(usuario.getPassword(), messages.getMessage(A_SENHA_NAO_PODE_SER_NULA));
 
         usuario.setPassword(encoder().encode(usuario.getPassword()));
-
     }
 
 }

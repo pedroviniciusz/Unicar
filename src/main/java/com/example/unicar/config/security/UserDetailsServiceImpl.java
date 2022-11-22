@@ -1,4 +1,4 @@
-package com.example.unicar.core.config.security;
+package com.example.unicar.config.security;
 
 import com.example.unicar.core.entity.Usuario;
 import com.example.unicar.core.repository.UsuarioRepository;
