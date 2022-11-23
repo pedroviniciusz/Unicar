@@ -5,7 +5,7 @@ Unicar é um sistema de gerenciamento de estacionamento, pensado e projetado um 
 
 ## Features
 
-- ✅ Cadastro de cliente
+- ✅ Cadastro de usuário
 - ✅ Cadastro de carro
 - ✅ Sistema de autorização e autenticação
 - ⏳ Gerar tickets referentes a entrada

@@ -32,8 +32,15 @@ public class CarroRestController extends BaseRestController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("/cadastrar")
-    public ResponseEntity<Carro> cadastrar(@RequestBody Carro carro) {
-        return writeResponseBody(service.cadastrar(carro));
+    public ResponseEntity<Carro> create(@RequestBody Carro carro) {
+        return writeResponseBody(service.create(carro));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/{uuid}")
+    public ResponseEntity<Void> delete(@PathVariable UUID uuid){
+        service.deleteByUuid(uuid);
+        return writeResponseBody();
     }
 
 }

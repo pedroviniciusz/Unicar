@@ -32,8 +32,21 @@ public class CarroService {
         return repository.findAll();
     }
 
-    public Carro cadastrar(Carro carro){
+    public Carro create(Carro carro){
         return repository.save(carro);
+    }
+
+    public void deleteByUuid(UUID uuid){
+
+        if(!existsCarroByUuid(uuid)){
+            throw new EntityNotFoundException(messages.getMessage(NAO_EXISTE_CARRO_COM_ESTE_UUID));
+        }
+
+        repository.deleteById(uuid);
+    }
+
+    private boolean existsCarroByUuid(UUID uuid){
+        return repository.existsById(uuid);
     }
 
 }

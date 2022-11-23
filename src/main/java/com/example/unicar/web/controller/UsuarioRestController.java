@@ -21,7 +21,7 @@ public class UsuarioRestController extends BaseRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("/cadastrar")
     public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
-        return writeResponseBody(service.cadastrar(usuario));
+        return writeResponseBody(service.create(usuario));
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")

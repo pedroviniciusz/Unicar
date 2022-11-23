@@ -39,16 +39,22 @@ public class UsuarioService {
         return repository.findAll();
     }
 
-    public Usuario cadastrar(Usuario usuario){
+    public Usuario create(Usuario usuario){
         
         if(existsUserByUsername(usuario.getUsername())){
             throw new EntityDuplicateException(messages.getMessage(JA_EXISTE_CADASTRO_COM_ESTE_USUARIO));
         }
 
-        codificarSenha(usuario);
+        encodePassword(usuario);
 
         return repository.save(usuario);
         
+    }
+
+    private void encodePassword(Usuario usuario){
+        requireField(usuario.getPassword(), messages.getMessage(A_SENHA_NAO_PODE_SER_NULA));
+
+        usuario.setPassword(encoder().encode(usuario.getPassword()));
     }
 
     public void deleteUsuarioByUuid(UUID uuid) {
@@ -67,11 +73,5 @@ public class UsuarioService {
 
     private boolean existsUserByUuid(UUID uuid){
         return repository.existsById(uuid);
-    }
-
-    private void codificarSenha(Usuario usuario){
-        requireField(usuario.getPassword(), messages.getMessage(A_SENHA_NAO_PODE_SER_NULA));
-
-        usuario.setPassword(encoder().encode(usuario.getPassword()));
     }
 }
