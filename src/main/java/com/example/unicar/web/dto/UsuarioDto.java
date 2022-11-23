@@ -4,7 +4,7 @@ import com.example.unicar.core.entity.Carro;
 import com.example.unicar.core.entity.Usuario;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,7 +29,7 @@ public class UsuarioDto {
 
     private final String cpf;
 
-    private final Date dataNascimento;
+    private final LocalDate dataNascimento;
 
     private final List<Carro> carros;
 

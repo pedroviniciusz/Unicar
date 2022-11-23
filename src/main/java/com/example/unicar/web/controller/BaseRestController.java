@@ -10,7 +10,7 @@ import static com.example.unicar.core.util.IsNullUtil.isNullOrEmpty;
 
 public abstract class BaseRestController {
 
-	protected <T> ResponseEntity<List<T>> writeResponseBody(List<T> body) {		
+	protected <T> ResponseEntity<List<T>> writeResponseBody(List<T> body) {
 		if (!isNullOrEmpty(body)) {
 			return ResponseEntity.ok(body);
 		}
@@ -21,4 +21,7 @@ public abstract class BaseRestController {
 		return ResponseEntity.ok(body);
 	}
 
+	protected <T> ResponseEntity<T> writeResponseBody() {
+		return ResponseEntity.ok().build();
+	}
 }

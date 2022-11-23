@@ -31,7 +31,7 @@ public class UsuarioService {
     }
 
     public Usuario findUsuarioByUuid(UUID uuid) {
-        Optional<Usuario> usuario = repository.findUsuarioByUuid(uuid);
+        Optional<Usuario> usuario = repository.findById(uuid);
         return usuario.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_USUARIO_COM_ESTE_USERNAME)));
     }
 
@@ -41,7 +41,7 @@ public class UsuarioService {
 
     public Usuario cadastrar(Usuario usuario){
         
-        if(existeUsuario(usuario.getUsername())){
+        if(existsUserByUsername(usuario.getUsername())){
             throw new EntityDuplicateException(messages.getMessage(JA_EXISTE_CADASTRO_COM_ESTE_USUARIO));
         }
 
@@ -51,8 +51,22 @@ public class UsuarioService {
         
     }
 
-    private boolean existeUsuario(String username){
+    public void deleteUsuarioByUuid(UUID uuid) {
+
+        if(!existsUserByUuid(uuid)){
+            throw new EntityDuplicateException(messages.getMessage(NAO_EXISTE_USUARIO_COM_ESTE_UUID));
+        }
+
+        repository.deleteById(uuid);
+
+    }
+
+    private boolean existsUserByUsername(String username){
         return repository.existsUsuarioByUsername(username);
+    }
+
+    private boolean existsUserByUuid(UUID uuid){
+        return repository.existsById(uuid);
     }
 
     private void codificarSenha(Usuario usuario){
@@ -60,5 +74,4 @@ public class UsuarioService {
 
         usuario.setPassword(encoder().encode(usuario.getPassword()));
     }
-
 }

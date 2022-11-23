@@ -30,7 +30,7 @@ public class CarroRestController extends BaseRestController {
         return writeResponseBody(CarroDto.transferToDto(service.findCarroByUuid(uuid)));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("/cadastrar")
     public ResponseEntity<Carro> cadastrar(@RequestBody Carro carro) {
         return writeResponseBody(service.cadastrar(carro));

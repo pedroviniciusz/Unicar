@@ -18,7 +18,7 @@ public class UsuarioRestController extends BaseRestController {
     @Autowired
     private UsuarioService service;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("/cadastrar")
     public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
         return writeResponseBody(service.cadastrar(usuario));
@@ -34,5 +34,12 @@ public class UsuarioRestController extends BaseRestController {
     @GetMapping
     public ResponseEntity<List<UsuarioDto>> findAll() {
         return writeResponseBody(UsuarioDto.transferToDtoList(service.findAll()));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/{uuid}")
+    public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
+        service.deleteUsuarioByUuid(uuid);
+        return writeResponseBody();
     }
 }

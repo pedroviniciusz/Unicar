@@ -10,6 +10,4 @@ import java.util.UUID;
 @Repository
 public interface CarroRepository extends JpaRepository<Carro, UUID> {
 
-    Optional<Carro> findCarroByUuid(UUID uuid);
-
 }

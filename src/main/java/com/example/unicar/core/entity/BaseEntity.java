@@ -10,6 +10,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @MappedSuperclass
@@ -24,23 +25,23 @@ public abstract class BaseEntity<T extends Serializable> implements Serializable
 
     @JsonIgnore
     @Column(updatable = false)
-    private Date inclusao;
+    private LocalDateTime inclusao;
 
     @JsonIgnore
-    private Date alteracao;
+    private LocalDateTime alteracao;
 
     @JsonIgnore
     private Boolean excluido;
 
     @PrePersist
     private void setInclusaoNow() {
-        setInclusao(new Date());
+        setInclusao(LocalDateTime.now());
         setExcluido(false);
     }
 
     @PreUpdate
     private void setAlteracaoNow() {
-        setAlteracao(new Date());
+        setAlteracao(LocalDateTime.now());
     }
 
 }

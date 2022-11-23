@@ -14,7 +14,6 @@ import java.util.UUID;
 
 import static com.example.unicar.config.Messages.NAO_EXISTE_CARRO_COM_ESTE_UUID;
 
-
 @Service
 @RequiredArgsConstructor
 public class CarroService {
@@ -25,7 +24,7 @@ public class CarroService {
     private final Messages messages;
 
     public Carro findCarroByUuid(UUID uuid) {
-        Optional<Carro> carro = repository.findCarroByUuid(uuid);
+        Optional<Carro> carro = repository.findById(uuid);
         return carro.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_CARRO_COM_ESTE_UUID)));
     }
 

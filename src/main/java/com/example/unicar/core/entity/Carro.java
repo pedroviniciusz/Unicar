@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter @Setter
@@ -26,7 +26,7 @@ public class Carro extends BaseEntity{
 
     private String cor;
 
-    private Date ano;
+    private LocalDate fabricacao;
 
     @JsonIgnore
     @ManyToOne

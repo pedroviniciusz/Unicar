@@ -3,7 +3,7 @@ package com.example.unicar.web.dto;
 import com.example.unicar.core.entity.Carro;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ public class CarroDto {
         this.modelo = carro.getModelo();
         this.placa = carro.getPlaca();
         this.cor = carro.getCor();
-        this.ano = carro.getAno();
+        this.fabricacao = carro.getFabricacao();
         this.proprietario = UsuarioDto.transferToDto(carro.getProprietario());
     }
 
@@ -31,7 +31,7 @@ public class CarroDto {
 
     private final String cor;
 
-    private final Date ano;
+    private final LocalDate fabricacao;
 
     private final UsuarioDto proprietario;
 
