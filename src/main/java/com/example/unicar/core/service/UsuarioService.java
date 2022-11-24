@@ -1,6 +1,7 @@
 package com.example.unicar.core.service;
 
 import com.example.unicar.config.security.EncodePassword;
+import com.example.unicar.core.entity.Ticket;
 import com.example.unicar.core.entity.Usuario;
 import com.example.unicar.core.exception.EntityDuplicateException;
 import com.example.unicar.core.exception.EntityNotFoundException;
@@ -56,13 +57,23 @@ public class UsuarioService {
         
     }
 
-    public Usuario createTicket(UUID uuid){
+    public Usuario checkIn(UUID uuid){
 
         Usuario usuario = findUsuarioByUuid(uuid);
 
-        ticketService.createTicket(usuario);
+        ticketService.checkIn(usuario);
 
         return usuario;
+    }
+
+    public Usuario checkOut(UUID uuid){
+
+       Ticket ticket = ticketService.findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc((uuid));
+
+       ticketService.checkOut(ticket);
+
+       return ticket.getUsuario();
+
     }
 
     public void deleteUsuarioByUuid(UUID uuid) {

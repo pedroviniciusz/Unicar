@@ -8,11 +8,13 @@ import com.example.unicar.core.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.example.unicar.config.Messages.NAO_EXISTE_TICKET_CADASTRADO_COM_ESTE_USUARIO;
 import static com.example.unicar.config.Messages.NAO_EXISTE_TICKET_COM_ESTE_UUID;
 
 @Service
@@ -36,7 +38,12 @@ public class TicketService {
         return repository.findAll();
     }
 
-    public void createTicket(Usuario usuario){
+    public Ticket findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc(UUID uuid){
+        Optional<Ticket> ticket = repository.findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc(uuid);
+        return ticket.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_TICKET_CADASTRADO_COM_ESTE_USUARIO)));
+    }
+
+    public void checkIn(Usuario usuario){
 
         Ticket ticket = new Ticket();
 
@@ -48,5 +55,29 @@ public class TicketService {
 
         repository.save(ticket);
     }
+
+    public void checkOut(Ticket ticket){
+
+        ticket.setHoraSaida(LocalDateTime.now());
+        ticket.setValorTotal(calculateValue(ticket));
+        ticket.setValido(false);
+
+        repository.save(ticket);
+
+    }
+
+    private static int calculateValue(Ticket ticket){
+
+        int horaTotal = getHoraTotal(ticket.getHoraSaida().getHour(), ticket.getHoraEntrada().getHour());
+
+        return horaTotal * BigDecimal.valueOf(5).intValue();
+
+    }
+
+    private static int getHoraTotal(int horaSaida, int horaEntrada) {
+
+        return horaSaida - horaEntrada;
+    }
+
 
 }

@@ -19,6 +19,7 @@ public class Messages {
     public static final String NAO_EXISTE_CARRO_COM_ESTE_UUID = "nao.existe.carro.este.uuid";
     public static final String NAO_EXISTE_USUARIO_COM_ESTE_UUID = "nao.existe.usuario.este.uuid";
     public static final String NAO_EXISTE_TICKET_COM_ESTE_UUID = "nao.existe.ticket.com.este.uuid";
+    public static final String NAO_EXISTE_TICKET_CADASTRADO_COM_ESTE_USUARIO = "nao.existe.ticket.cadastrado.com.este.usuario";
 
 
     public String getMessage(String code){

@@ -43,9 +43,15 @@ public class UsuarioRestController extends BaseRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping("/create/ticket")
-    public ResponseEntity<Usuario> createTicket(@RequestBody Usuario usuario) {
-        return writeResponseBodyCreated(service.createTicket(usuario.getUuid()));
+    @PostMapping("/checkin/ticket")
+    public ResponseEntity<UsuarioDto> checkIn(@RequestBody Usuario usuario) {
+        return writeResponseBody(UsuarioDto.transferToDto(service.checkIn(usuario.getUuid())));
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping("/checkout/ticket")
+    public ResponseEntity<UsuarioDto> checkOut(@RequestBody Usuario usuario) {
+        return writeResponseBody(UsuarioDto.transferToDto(service.checkOut(usuario.getUuid())));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

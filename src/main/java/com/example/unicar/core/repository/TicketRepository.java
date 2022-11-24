@@ -13,4 +13,6 @@ public interface TicketRepository extends JpaRepository<Ticket, UUID> {
 
     List<Ticket> findAllByUsuarioUuid(UUID uuid);
 
+    Optional<Ticket> findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc(UUID uuid);
+
 }
