@@ -18,8 +18,7 @@ import static com.example.unicar.config.Messages.NAO_EXISTE_CARRO_COM_ESTE_UUID;
 @RequiredArgsConstructor
 public class CarroService {
 
-    @Autowired
-    private CarroRepository repository;
+    private final CarroRepository repository;
 
     private final Messages messages;
 

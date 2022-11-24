@@ -22,6 +22,11 @@ public abstract class BaseRestController {
 	}
 
 	protected <T> ResponseEntity<T> writeResponseBody() {
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
+	protected <T> ResponseEntity<T> writeResponseBodyCreated(T value) {
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("{/uuid}").buildAndExpand(value).toUri();
+		return ResponseEntity.created(location).build();
+	}
+
 }

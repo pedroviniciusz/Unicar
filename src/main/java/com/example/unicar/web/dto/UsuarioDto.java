@@ -1,6 +1,7 @@
 package com.example.unicar.web.dto;
 
 import com.example.unicar.core.entity.Carro;
+import com.example.unicar.core.entity.Ticket;
 import com.example.unicar.core.entity.Usuario;
 import lombok.Getter;
 
@@ -19,6 +20,7 @@ public class UsuarioDto {
         this.cpf = usuario.getCpf();
         this.dataNascimento = usuario.getDataNascimento();
         this.carros = usuario.getCarros();
+        this.tickets = usuario.getTickets();
     }
 
     private final UUID uuid;
@@ -32,6 +34,8 @@ public class UsuarioDto {
     private final LocalDate dataNascimento;
 
     private final List<Carro> carros;
+
+    private final List<Ticket> tickets;
 
     public static UsuarioDto transferToDto(Usuario usuario){
         return new UsuarioDto(usuario);

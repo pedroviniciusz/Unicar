@@ -1,13 +1,12 @@
 package com.example.unicar.core.service;
 
+import com.example.unicar.config.security.EncodePassword;
 import com.example.unicar.core.entity.Usuario;
 import com.example.unicar.core.exception.EntityDuplicateException;
 import com.example.unicar.core.exception.EntityNotFoundException;
 import com.example.unicar.core.repository.UsuarioRepository;
 import com.example.unicar.config.Messages;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,17 +20,21 @@ import static com.example.unicar.config.Messages.*;
 @RequiredArgsConstructor
 public class UsuarioService {
 
-    @Autowired
-    private UsuarioRepository repository;
+    private final UsuarioRepository repository;
+
+    private final TicketService ticketService;
+
+    private final EncodePassword encoder;
 
     private final Messages messages;
 
-    private BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     public Usuario findUsuarioByUuid(UUID uuid) {
         Optional<Usuario> usuario = repository.findById(uuid);
+        return usuario.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_USUARIO_COM_ESTE_UUID)));
+    }
+
+    public Usuario findUsuarioByUsername(String username) {
+        Optional<Usuario> usuario = repository.findUsuarioByUsername(username);
         return usuario.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_USUARIO_COM_ESTE_USERNAME)));
     }
 
@@ -45,16 +48,21 @@ public class UsuarioService {
             throw new EntityDuplicateException(messages.getMessage(JA_EXISTE_CADASTRO_COM_ESTE_USUARIO));
         }
 
-        encodePassword(usuario);
+        requireField(usuario.getPassword(), messages.getMessage(A_SENHA_NAO_PODE_SER_NULA));
+
+        encoder.encodePassword(usuario);
 
         return repository.save(usuario);
         
     }
 
-    private void encodePassword(Usuario usuario){
-        requireField(usuario.getPassword(), messages.getMessage(A_SENHA_NAO_PODE_SER_NULA));
+    public Usuario createTicket(UUID uuid){
 
-        usuario.setPassword(encoder().encode(usuario.getPassword()));
+        Usuario usuario = findUsuarioByUuid(uuid);
+
+        ticketService.createTicket(usuario);
+
+        return usuario;
     }
 
     public void deleteUsuarioByUuid(UUID uuid) {

@@ -39,6 +39,9 @@ public class Usuario extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
     private List<Carro> carros;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Ticket> tickets;
+
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

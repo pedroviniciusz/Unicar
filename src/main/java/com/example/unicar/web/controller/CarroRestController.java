@@ -3,7 +3,7 @@ package com.example.unicar.web.controller;
 import com.example.unicar.core.entity.Carro;
 import com.example.unicar.core.service.CarroService;
 import com.example.unicar.web.dto.CarroDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/carros")
 public class CarroRestController extends BaseRestController {
 
-    @Autowired
-    private CarroService service;
+    private final CarroService service;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
@@ -31,9 +31,9 @@ public class CarroRestController extends BaseRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping("/cadastrar")
+    @PostMapping("/create")
     public ResponseEntity<Carro> create(@RequestBody Carro carro) {
-        return writeResponseBody(service.create(carro));
+        return writeResponseBodyCreated(service.create(carro));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

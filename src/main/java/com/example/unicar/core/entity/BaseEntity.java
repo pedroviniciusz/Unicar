@@ -11,7 +11,6 @@ import javax.persistence.PreUpdate;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @MappedSuperclass
 @Getter

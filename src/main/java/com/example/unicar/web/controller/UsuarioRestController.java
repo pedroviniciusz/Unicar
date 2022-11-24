@@ -3,7 +3,7 @@ package com.example.unicar.web.controller;
 import com.example.unicar.web.dto.UsuarioDto;
 import com.example.unicar.core.entity.Usuario;
 import com.example.unicar.core.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioRestController extends BaseRestController {
 
-    @Autowired
-    private UsuarioService service;
-
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping("/cadastrar")
-    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
-        return writeResponseBody(service.create(usuario));
-    }
+    private final UsuarioService service;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{uuid}")
@@ -31,9 +25,27 @@ public class UsuarioRestController extends BaseRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @GetMapping(value = "/username/{username}")
+    public ResponseEntity<UsuarioDto> findByUsuarioUsername(@PathVariable String username) {
+        return writeResponseBody(UsuarioDto.transferToDto(service.findUsuarioByUsername(username)));
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
     public ResponseEntity<List<UsuarioDto>> findAll() {
         return writeResponseBody(UsuarioDto.transferToDtoList(service.findAll()));
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping("/create")
+    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
+        return writeResponseBodyCreated(service.create(usuario));
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping("/create/ticket")
+    public ResponseEntity<Usuario> createTicket(@RequestBody Usuario usuario) {
+        return writeResponseBodyCreated(service.createTicket(usuario.getUuid()));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
