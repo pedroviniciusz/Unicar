@@ -13,8 +13,8 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="652"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="630"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="360"/>
-	<parameter name="p_data_inicio" class="java.sql.Date"/>
-	<parameter name="p_data_fim" class="java.sql.Date"/>
+	<parameter name="data_inicio" class="java.sql.Date"/>
+	<parameter name="data_fim" class="java.sql.Date"/>
 	<queryString>
 		<![CDATA[select
 	t.uuid as id,
@@ -29,7 +29,7 @@ inner join usuario u on u.uuid = t.usuario_uuid
 where 1=1
 and t.excluido = false
 and u.excluido = false
-and t.hora_entrada between $P{p_data_inicio}::date and $P{p_data_fim}::date
+and t.hora_entrada between $P{data_inicio}::date and $P{data_fim}::date
 order by t.hora_entrada]]>
 	</queryString>
 	<field name="id" class="java.lang.String">
@@ -211,7 +211,7 @@ order by t.hora_entrada]]>
 				<textElement textAlignment="Left">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["PERÍODO: " + new SimpleDateFormat("dd/MM/yy").format($P{p_data_inicio}) + " A "+new SimpleDateFormat("dd/MM/yy").format($P{p_data_fim})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["PERÍODO: " + new SimpleDateFormat("dd/MM/yy").format($P{data_inicio}) + " A "+new SimpleDateFormat("dd/MM/yy").format($P{data_fim})]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
