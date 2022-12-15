@@ -28,14 +28,14 @@ public class JasperReportService {
     public static final String ENTRADAS_SAIDAS = "EntradasSaidas";
 
     public InputStream relatorioEntradasSaidas(ParametrosJasperReport parametros) {
-        final Map<String, Object> parametrosReport = new HashMap<>();
-        addData(parametrosReport, parametros);
+        final Map<String, Object> reportMap = new HashMap<>();
+        addData(reportMap, parametros);
 
-        return exportService.exportReport(ENTRADAS_SAIDAS, parametrosReport, parametros.getFormato());
+        return exportService.exportReport(ENTRADAS_SAIDAS, reportMap, parametros.getFormato());
     }
-    private void addData(Map<String, Object> parametrosReport, ParametrosJasperReport filtro) {
-        parametrosReport.put(DATA_INICIO, Date.valueOf(formatDate(filtro.getDataInicio())));
-        parametrosReport.put(DATA_FIM, Date.valueOf(formatDate(filtro.getDataFim())));
+    private void addData(Map<String, Object> reportMap, ParametrosJasperReport parametros) {
+        reportMap.put(DATA_INICIO, Date.valueOf(formatDate(parametros.getDataInicio())));
+        reportMap.put(DATA_FIM, Date.valueOf(formatDate(parametros.getDataFim())));
     }
 
     private String formatDate(String date) {

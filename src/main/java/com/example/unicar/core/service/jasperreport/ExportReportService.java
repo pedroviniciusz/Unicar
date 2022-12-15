@@ -21,12 +21,12 @@ public class ExportReportService {
 
     private final DataSource dataSource;
 
-    public InputStream exportReport(String report, Map<String, Object> parametrosReport, Formato formato) {
+    public InputStream exportReport(String report, Map<String, Object> reportMap, Formato formato) {
         try {
             InputStream inputStream = getClass().getResourceAsStream("/" + report + ".jrxml");
             JasperReport reportCompilado = JasperCompileManager.compileReport(inputStream);
 
-            JasperPrint reportPreenchido = JasperFillManager.fillReport(reportCompilado, parametrosReport, dataSource.getConnection());
+            JasperPrint reportPreenchido = JasperFillManager.fillReport(reportCompilado, reportMap, dataSource.getConnection());
 
             if (formato.equals(Formato.XLSX)) {
                 JRXlsxExporter exporter = new JRXlsxExporter();
