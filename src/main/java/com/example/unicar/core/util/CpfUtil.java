@@ -10,14 +10,26 @@ public class CpfUtil {
 		}
 
 		cpf = cpf.replaceAll("\\D", "");
+
 		if (cpf.length() != 11)
 			return false;
+
+		if(verificaDigitosRepetidos(cpf)){
+			return false;
+		}
 
 		return calcularDigitos(cpf).equals(cpf.substring(9, 11));
 	}
 
+	private static boolean verificaDigitosRepetidos(String cpf)
+	{
+		return cpf.matches("^(\\d)\\1{10}");
+
+	}
+
 	private static String calcularDigitos(String cpf){
 		String digitos = cpf.substring(0, 9);
+
 		int primeiro = calcularPrimeiroDigito(digitos);
 		int segundo = calcularSegundoDigito(digitos, primeiro);
 
