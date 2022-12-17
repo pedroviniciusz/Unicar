@@ -2,6 +2,7 @@ package com.example.unicar.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +13,7 @@ import java.util.*;
 @Getter @Setter
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor @AllArgsConstructor
+@SQLDelete(sql = "UPDATE usuario SET excluido = true WHERE uuid=?")
 @Entity
 @Table(name = "usuario")
 public class Usuario extends BaseEntity implements UserDetails {
