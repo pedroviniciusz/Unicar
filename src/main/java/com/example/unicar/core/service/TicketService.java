@@ -25,13 +25,13 @@ public class TicketService {
 
     private final Messages messages;
 
-    public Ticket findTicketByUuid(UUID uuid) {
+    public Ticket findTicketById(UUID uuid) {
         Optional<Ticket> ticket = repository.findById(uuid);
         return ticket.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_TICKET_COM_ESTE_UUID)));
     }
 
     public List<Ticket> findAllByUsuarioUuid(UUID uuid){
-        return repository.findAllByUsuarioUuid(uuid);
+        return repository.findAllByUsuarioUuidAndExcluidoFalse(uuid);
     }
 
     public List<Ticket> findAll(){
@@ -39,7 +39,7 @@ public class TicketService {
     }
 
     public Ticket findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc(UUID uuid){
-        Optional<Ticket> ticket = repository.findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc(uuid);
+        Optional<Ticket> ticket = repository.findTopByUsuarioUuidAndValidoTrueOrderByInclusaoDesc(uuid);
         return ticket.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_TICKET_CADASTRADO_COM_ESTE_USUARIO)));
     }
 

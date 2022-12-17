@@ -1,9 +1,7 @@
 package com.example.unicar.web.controller;
 
-import com.example.unicar.core.entity.Ticket;
 import com.example.unicar.core.service.TicketService;
 import com.example.unicar.web.dto.TicketDto;
-import com.example.unicar.web.dto.UsuarioDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,7 +23,7 @@ public class TicketRestController extends BaseRestController{
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{uuid}")
     public ResponseEntity<TicketDto> findByUuid(@PathVariable UUID uuid) {
-        return writeResponseBody(TicketDto.transferToDto(service.findTicketByUuid(uuid)));
+        return writeResponseBody(TicketDto.transferToDto(service.findTicketById(uuid)));
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")

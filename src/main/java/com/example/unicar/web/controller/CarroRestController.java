@@ -27,19 +27,19 @@ public class CarroRestController extends BaseRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{uuid}")
     public ResponseEntity<CarroDto> findByUuid(@PathVariable UUID uuid) {
-        return writeResponseBody(CarroDto.transferToDto(service.findCarroByUuid(uuid)));
+        return writeResponseBody(CarroDto.transferToDto(service.findCarroById(uuid)));
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("/create")
     public ResponseEntity<Carro> create(@RequestBody Carro carro) {
-        return writeResponseBodyCreated(service.create(carro));
+        return writeResponseBody(service.create(carro));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{uuid}")
     public ResponseEntity<Void> delete(@PathVariable UUID uuid){
-        service.deleteByUuid(uuid);
+        service.deleteById(uuid);
         return writeResponseBody();
     }
 

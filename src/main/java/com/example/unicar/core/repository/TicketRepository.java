@@ -11,8 +11,8 @@ import java.util.UUID;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, UUID> {
 
-    List<Ticket> findAllByUsuarioUuid(UUID uuid);
+    List<Ticket> findAllByUsuarioUuidAndExcluidoFalse(UUID uuid);
 
-    Optional<Ticket> findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc(UUID uuid);
+    Optional<Ticket> findTopByUsuarioUuidAndValidoTrueOrderByInclusaoDesc(UUID uuid);
 
 }

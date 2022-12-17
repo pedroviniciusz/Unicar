@@ -21,7 +21,7 @@ public class UsuarioRestController extends BaseRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{uuid}")
     public ResponseEntity<UsuarioDto> findByUuid(@PathVariable UUID uuid) {
-        return writeResponseBody(UsuarioDto.transferToDto(service.findUsuarioByUuid(uuid)));
+        return writeResponseBody(UsuarioDto.transferToDto(service.findUsuarioById(uuid)));
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -57,7 +57,7 @@ public class UsuarioRestController extends BaseRestController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{uuid}")
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
-        service.deleteUsuarioByUuid(uuid);
+        service.deleteUsuarioById(uuid);
         return writeResponseBody();
     }
 }

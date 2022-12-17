@@ -5,7 +5,6 @@ import com.example.unicar.core.entity.Carro;
 import com.example.unicar.core.exception.EntityNotFoundException;
 import com.example.unicar.core.repository.CarroRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class CarroService {
 
     private final Messages messages;
 
-    public Carro findCarroByUuid(UUID uuid) {
+    public Carro findCarroById(UUID uuid) {
         Optional<Carro> carro = repository.findById(uuid);
         return carro.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_CARRO_COM_ESTE_UUID)));
     }
@@ -35,16 +34,16 @@ public class CarroService {
         return repository.save(carro);
     }
 
-    public void deleteByUuid(UUID uuid){
+    public void deleteById(UUID uuid){
 
-        if(!existsCarroByUuid(uuid)){
+        if(!existsCarroById(uuid)){
             throw new EntityNotFoundException(messages.getMessage(NAO_EXISTE_CARRO_COM_ESTE_UUID));
         }
 
         repository.deleteById(uuid);
     }
 
-    private boolean existsCarroByUuid(UUID uuid){
+    private boolean existsCarroById(UUID uuid){
         return repository.existsById(uuid);
     }
 
