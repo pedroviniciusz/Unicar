@@ -22,6 +22,8 @@ public class Messages {
     public static final String NAO_EXISTE_USUARIO_COM_ESTE_UUID = "nao.existe.usuario.este.uuid";
     public static final String NAO_EXISTE_TICKET_COM_ESTE_UUID = "nao.existe.ticket.com.este.uuid";
     public static final String NAO_EXISTE_TICKET_CADASTRADO_COM_ESTE_USUARIO = "nao.existe.ticket.cadastrado.com.este.usuario";
+    public static final String JA_EXISTE_CARRO_CADASTRADO_COM_ESTA_PLACA = "ja.existe.carro.cadastrado.com.esta.placa";
+    public static final String PLACA_INVALIDA = "placa.invalida";
 
 
     public String getMessage(String code){

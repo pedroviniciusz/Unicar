@@ -13,12 +13,12 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 
-import static com.example.unicar.core.util.IsNullUtil.isNullOrEmpty;
+import static com.example.unicar.core.util.IsNullUtil.isNotNull;
 
 public abstract class BaseRestController {
 
 	protected <T> ResponseEntity<List<T>> writeResponseBody(List<T> body) {
-		if (!isNullOrEmpty(body)) {
+		if (isNotNull(body)) {
 			return ResponseEntity.ok(body);
 		}
 		return ResponseEntity.noContent().build();
