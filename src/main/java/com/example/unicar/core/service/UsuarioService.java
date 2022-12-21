@@ -51,7 +51,7 @@ public class UsuarioService {
             throw new EntityDuplicateException(messages.getMessage(JA_EXISTE_CADASTRO_COM_ESTE_USUARIO));
         }
 
-        if(existsUserByCpf(usuario.getCpf())){
+        if(existsUserByCpf(CpfUtil.formatarCpf(usuario.getCpf()))){
             throw new EntityDuplicateException(messages.getMessage(JA_EXISTE_CADASTRO_COM_ESTE_CPF));
         }
 

@@ -7,7 +7,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class UsuarioException  extends RuntimeException implements Serializable {
+public class UsuarioException extends RuntimeException implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 7655981454680387216L;

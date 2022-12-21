@@ -5,26 +5,21 @@ import static com.example.unicar.core.util.IsNullUtil.isNullOrEmpty;
 public class CpfUtil {
 
 	public static boolean isValido(String cpf) {
+
+		cpf = cpf.replaceAll("\\D", "");
+
 		if (isNullOrEmpty(cpf)) {
 			return false;
 		}
 
-		cpf = cpf.replaceAll("\\D", "");
-
 		if (cpf.length() != 11)
 			return false;
 
-		if(verificaDigitosRepetidos(cpf)){
+		if (cpf.matches("^(\\d)\\1{10}")){
 			return false;
 		}
 
 		return calcularDigitos(cpf).equals(cpf.substring(9, 11));
-	}
-
-	private static boolean verificaDigitosRepetidos(String cpf)
-	{
-		return cpf.matches("^(\\d)\\1{10}");
-
 	}
 
 	private static String calcularDigitos(String cpf){

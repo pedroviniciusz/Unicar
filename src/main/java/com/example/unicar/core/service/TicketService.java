@@ -66,7 +66,7 @@ public class TicketService {
 
     }
 
-    private static int calculateValue(Ticket ticket){
+    private int calculateValue(Ticket ticket){
 
         int horaTotal = getHoraTotal(ticket.getHoraSaida().getHour(), ticket.getHoraEntrada().getHour());
 
@@ -74,8 +74,7 @@ public class TicketService {
 
     }
 
-    private static int getHoraTotal(int horaSaida, int horaEntrada) {
-
+    private int getHoraTotal(int horaSaida, int horaEntrada) {
         return horaSaida - horaEntrada;
     }
 

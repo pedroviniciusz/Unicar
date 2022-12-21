@@ -46,14 +46,14 @@ public class ExportReportService {
         }
     }
 
-    private static ByteArrayOutputStream getByteArrayOutputStream(JasperPrint reportPreenchido, JRXlsxExporter exporter) {
+    private ByteArrayOutputStream getByteArrayOutputStream(JasperPrint reportPreenchido, JRXlsxExporter exporter) {
         exporter.setExporterInput(new SimpleExporterInput(reportPreenchido));
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(out));
         return out;
     }
 
-    private static void setConfiguration(JRXlsxExporter exporter) {
+    private void setConfiguration(JRXlsxExporter exporter) {
         SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
         configuration.setDetectCellType(true);
         configuration.setCollapseRowSpan(false);
