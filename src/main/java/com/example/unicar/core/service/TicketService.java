@@ -57,7 +57,9 @@ public class TicketService {
         repository.save(ticket);
     }
 
-    public void checkOut(Ticket ticket){
+    public void checkOut(Usuario usuario){
+
+        Ticket ticket = findTopByUsuarioUuid((usuario.getUuid()));
 
         ticket.setHoraSaida(LocalDateTime.now());
         ticket.setValorTotal(calculateValue(ticket));

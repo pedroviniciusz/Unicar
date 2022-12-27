@@ -1,7 +1,6 @@
 package com.example.unicar.core.service;
 
 import com.example.unicar.config.security.EncodePassword;
-import com.example.unicar.core.entity.Ticket;
 import com.example.unicar.core.entity.Usuario;
 import com.example.unicar.core.exception.EntityDuplicateException;
 import com.example.unicar.core.exception.EntityNotFoundException;
@@ -80,11 +79,11 @@ public class UsuarioService {
 
     public Usuario checkOut(UUID uuid){
 
-       Ticket ticket = ticketService.findTopByUsuarioUuid((uuid));
+       Usuario usuario = findUsuarioById(uuid);
 
-       ticketService.checkOut(ticket);
+       ticketService.checkOut(usuario);
 
-       return ticket.getUsuario();
+       return usuario;
 
     }
 
