@@ -24,7 +24,7 @@ public class Ticket extends BaseEntity{
 
     private LocalDateTime horaSaida;
 
-    private Integer valorTotal;
+    private Long valorTotal;
 
     private boolean valido;
 

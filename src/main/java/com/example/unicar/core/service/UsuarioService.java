@@ -80,7 +80,7 @@ public class UsuarioService {
 
     public Usuario checkOut(UUID uuid){
 
-       Ticket ticket = ticketService.findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc((uuid));
+       Ticket ticket = ticketService.findTopByUsuarioUuid((uuid));
 
        ticketService.checkOut(ticket);
 

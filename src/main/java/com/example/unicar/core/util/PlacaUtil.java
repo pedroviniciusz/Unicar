@@ -17,7 +17,6 @@ public class PlacaUtil {
        }
 
         return placa.matches("[a-zA-Z]{3}[0-9][a-zA-Z][0-9]{2}|[a-zA-Z]{3}[0-9]{4}");
-
     }
 
     public static String formatarPlaca(String placa){
@@ -25,6 +24,7 @@ public class PlacaUtil {
         if(placa.matches("(?i)[A-Z]{3}[0-9]{4}")){
             placa = placa.substring(0, 3) + "-" + placa.substring(3, 7);
         }
+
         return placa.toUpperCase();
     }
 

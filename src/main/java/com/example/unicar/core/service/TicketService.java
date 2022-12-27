@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,7 +39,7 @@ public class TicketService {
         return repository.findAll();
     }
 
-    public Ticket findTopByUsuarioUuidAndValidoIsTrueOrderByInclusaoDesc(UUID uuid){
+    public Ticket findTopByUsuarioUuid(UUID uuid){
         Optional<Ticket> ticket = repository.findTopByUsuarioUuidAndValidoTrueOrderByInclusaoDesc(uuid);
         return ticket.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_TICKET_CADASTRADO_COM_ESTE_USUARIO)));
     }
@@ -66,17 +67,12 @@ public class TicketService {
 
     }
 
-    private int calculateValue(Ticket ticket){
+    private long calculateValue(Ticket ticket){
 
-        int horaTotal = getHoraTotal(ticket.getHoraSaida().getHour(), ticket.getHoraEntrada().getHour());
+        long horaTotal = ChronoUnit.HOURS.between(ticket.getHoraEntrada(), ticket.getHoraSaida());
 
         return horaTotal * BigDecimal.valueOf(5).intValue();
 
     }
-
-    private int getHoraTotal(int horaSaida, int horaEntrada) {
-        return horaSaida - horaEntrada;
-    }
-
 
 }

@@ -27,7 +27,7 @@ public class TicketDto {
 
     private final LocalDateTime horaSaida;
 
-    private final Integer valorTotal;
+    private final long valorTotal;
 
     private final boolean valido;
 
