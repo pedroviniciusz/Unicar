@@ -31,12 +31,8 @@ public abstract class BaseRestController {
 	protected <T> ResponseEntity<T> writeResponseBody() {
 		return ResponseEntity.ok().build();
 	}
-	protected <T> ResponseEntity<T> writeResponseBodyCreated(T value) {
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("{/uuid}").buildAndExpand(value).toUri();
-		return ResponseEntity.created(location).build();
-	}
 
-	protected static ResponseEntity<Resource> response(InputStream inputStream, String report, Formato formato) {
+	protected static ResponseEntity<Resource> writeResponseBody(InputStream inputStream, String report, Formato formato) {
 		try {
 			int length = inputStream.available();
 
@@ -51,6 +47,11 @@ public abstract class BaseRestController {
 			ExceptionUtil.exception(e.getMessage());
 		}
 		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
+
+	protected <T> ResponseEntity<T> writeResponseBodyCreated(T value) {
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("{/uuid}").buildAndExpand(value).toUri();
+		return ResponseEntity.created(location).build();
 	}
 
 }

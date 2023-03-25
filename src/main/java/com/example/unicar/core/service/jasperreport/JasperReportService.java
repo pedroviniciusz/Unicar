@@ -2,7 +2,7 @@ package com.example.unicar.core.service.jasperreport;
 
 import com.example.unicar.core.exception.JasperReportException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.sql.Date;
@@ -11,21 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.unicar.core.constantes.Constantes.*;
 import static com.example.unicar.core.util.IsNullUtil.isNullOrEmpty;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class JasperReportService {
 
     private final ExportReportService exportService;
-
-    private static final String DATA_FIM = "data_fim";
-    private static final String DATA_INICIO = "data_inicio";
-
-    private static final String DATA_INVALIDA = "A data inserida é inválida";
-    private static final String INFORMAR_DATA = "Por favor, informe a data";
-
-    public static final String ENTRADAS_SAIDAS = "EntradasSaidas";
 
     public InputStream relatorioEntradasSaidas(ParametrosJasperReport parametros) {
         final Map<String, Object> reportMap = new HashMap<>();

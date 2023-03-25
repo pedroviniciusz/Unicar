@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.InputStream;
 
-import static com.example.unicar.core.service.jasperreport.JasperReportService.ENTRADAS_SAIDAS;
+import static com.example.unicar.core.constantes.Constantes.ENTRADAS_SAIDAS;
+import static com.example.unicar.core.constantes.Constantes.RELATORIO_INEXISTENTE;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/relatorios")
 public class JasperReportRestController extends BaseRestController{
 
-    private static final String RELATORIO_INEXISTENTE = "Relatório inexistente";
     private final JasperReportService service;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -32,7 +32,7 @@ public class JasperReportRestController extends BaseRestController{
             default -> throw new JasperReportException(RELATORIO_INEXISTENTE);
         };
 
-        return response(inputStream, report, parametrosJasperReport.getFormato());
+        return writeResponseBody(inputStream, report, parametrosJasperReport.getFormato());
 
     }
 
