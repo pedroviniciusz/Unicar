@@ -11,7 +11,7 @@ Unicar é um sistema de gerenciamento de estacionamento, pensado e projetado um 
 - ✅ Gerar tickets referentes ao check in no estacionamento
 - ✅ Invalidar ticket ao check out do estacionamento
 - ✅ Valor total do serviço
-- ⏳ Gerar relatórios
+- ✅ Gerar relatórios
 
 ## Técnicas e tecnologias utilizadas
 
