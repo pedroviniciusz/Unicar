@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Getter @Setter
+@Builder
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor @AllArgsConstructor
 @SQLDelete(sql = "UPDATE usuario SET excluido = true WHERE uuid=?")

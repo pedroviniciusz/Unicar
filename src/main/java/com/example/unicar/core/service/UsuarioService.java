@@ -6,7 +6,7 @@ import com.example.unicar.core.exception.EntityDuplicateException;
 import com.example.unicar.core.exception.EntityNotFoundException;
 import com.example.unicar.core.exception.UsuarioException;
 import com.example.unicar.core.repository.UsuarioRepository;
-import com.example.unicar.config.Messages;
+import com.example.unicar.core.message.Messages;
 import com.example.unicar.core.util.CpfUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.example.unicar.core.exception.ExceptionUtil.requireField;
-import static com.example.unicar.config.Messages.*;
+import static com.example.unicar.core.message.Messages.*;
+import static com.example.unicar.core.util.IsNullUtil.isNullOrEmpty;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class UsuarioService {
     }
 
     public Usuario findUsuarioByUsername(String username) {
-        Optional<Usuario> usuario = repository.findUsuarioByUsernameAndExcluidoFalse(username);
+        Optional<Usuario> usuario = repository.findUsuarioByUsername(username);
         return usuario.orElseThrow(() -> new EntityNotFoundException(messages.getMessage(NAO_EXISTE_USUARIO_COM_ESTE_USERNAME)));
     }
 
@@ -60,7 +60,9 @@ public class UsuarioService {
 
         usuario.setCpf(CpfUtil.formatarCpf(usuario.getCpf()));
 
-        requireField(usuario.getPassword(), messages.getMessage(A_SENHA_NAO_PODE_SER_NULA));
+        if(isNullOrEmpty(usuario.getPassword())){
+            throw new IllegalArgumentException(messages.getMessage(A_SENHA_NAO_PODE_SER_NULA));
+        }
 
         encoder.encodePassword(usuario);
 
@@ -90,7 +92,7 @@ public class UsuarioService {
     public void deleteUsuarioById(UUID uuid) {
 
         if(!existsUserById(uuid)){
-            throw new EntityDuplicateException(messages.getMessage(NAO_EXISTE_USUARIO_COM_ESTE_UUID));
+            throw new EntityNotFoundException(messages.getMessage(NAO_EXISTE_USUARIO_COM_ESTE_UUID));
         }
 
         repository.deleteById(uuid);
@@ -98,7 +100,7 @@ public class UsuarioService {
     }
 
     private boolean existsUserByUsername(String username){
-        return repository.existsUsuarioByUsernameAndExcluidoFalse(username);
+        return repository.existsUsuarioByUsername(username);
     }
 
     private boolean existsUserById(UUID uuid){
