@@ -1,6 +1,6 @@
 package com.example.unicar.core.service;
 
-import com.example.unicar.config.Messages;
+import com.example.unicar.core.message.Messages;
 import com.example.unicar.core.entity.Carro;
 import com.example.unicar.core.exception.CarroException;
 import com.example.unicar.core.exception.EntityNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.example.unicar.config.Messages.*;
+import static com.example.unicar.core.message.Messages.*;
 
 @Service
 @RequiredArgsConstructor

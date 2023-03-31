@@ -1,6 +1,6 @@
 package com.example.unicar.core.service;
 
-import com.example.unicar.config.Messages;
+import com.example.unicar.core.message.Messages;
 import com.example.unicar.core.entity.Ticket;
 import com.example.unicar.core.entity.Usuario;
 import com.example.unicar.core.exception.EntityNotFoundException;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.example.unicar.config.Messages.NAO_EXISTE_TICKET_CADASTRADO_COM_ESTE_USUARIO;
-import static com.example.unicar.config.Messages.NAO_EXISTE_TICKET_COM_ESTE_UUID;
+import static com.example.unicar.core.message.Messages.NAO_EXISTE_TICKET_CADASTRADO_COM_ESTE_USUARIO;
+import static com.example.unicar.core.message.Messages.NAO_EXISTE_TICKET_COM_ESTE_UUID;
 
 @Service
 @RequiredArgsConstructor

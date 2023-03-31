@@ -1,17 +1,13 @@
-package com.example.unicar.config;
+package com.example.unicar.core.message;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
-import java.util.Locale;
-
 @RequiredArgsConstructor
 @Configuration
 public class Messages {
-
-    private final ResourceBundleMessageSource messageSource;
 
     public static final String NAO_EXISTE_USUARIO_COM_ESTE_USERNAME = "nao.existe.usuario.cadastrado.com.este.username";
     public static final String JA_EXISTE_CADASTRO_COM_ESTE_USUARIO = "ja.existe.cadastro.com.este.usuario";
@@ -25,11 +21,10 @@ public class Messages {
     public static final String JA_EXISTE_CARRO_CADASTRADO_COM_ESTA_PLACA = "ja.existe.carro.cadastrado.com.esta.placa";
     public static final String PLACA_INVALIDA = "placa.invalida";
 
+    private final ResourceBundleMessageSource messageSource;
 
     public String getMessage(String code){
-        Locale locale = LocaleContextHolder.getLocale();
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource.getMessage(code, null, locale);
+        return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
     }
 
 }

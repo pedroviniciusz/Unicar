@@ -1,6 +1,7 @@
 package com.example.unicar.core.util;
 
 public class IsNullUtil {
+
 	public static boolean isNull(Object value) {
 		return value == null;
 	}
